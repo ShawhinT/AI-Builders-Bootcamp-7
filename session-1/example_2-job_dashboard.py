@@ -41,14 +41,17 @@ def load_and_process_data():
     """Load and process the AI job data"""
     
     # Load the data
-    df = pd.read_csv('data/ai_job_data.csv')
-    
-    # Remove duplicates based on company_name, job_title, and location
-    df_clean = df.drop_duplicates(subset=['company_name', 'job_title', 'location'])
+    df = pd.read_csv('data/job_data.csv')
+
+    # Remove duplicates based on organization, job_title, and location
+    df_clean = df.drop_duplicates(subset=['organization', 'job_title', 'location'])
     
     # Handle salary data
     df_clean = df_clean.copy()
+    # Clean currency formatting (remove $ and commas)
+    df_clean['salary_min'] = df_clean['min_salary'].str.replace('$', '', regex=False).str.replace(',', '', regex=False)
     df_clean['salary_min'] = pd.to_numeric(df_clean['salary_min'], errors='coerce')
+    df_clean['salary_max'] = df_clean['max_salary'].str.replace('$', '', regex=False).str.replace(',', '', regex=False)
     df_clean['salary_max'] = pd.to_numeric(df_clean['salary_max'], errors='coerce')
     
     # Convert hourly rates (< $100) to annual salary (assuming 40 hours/week, 52 weeks/year)
@@ -67,7 +70,10 @@ def load_and_process_data():
     # Remove rows with no salary data
     df_clean = df_clean.dropna(subset=['avg_salary'])
     df_clean = df_clean[df_clean['avg_salary'] > 0]
-    
+
+    # Remove rows where min_salary is less than $10,000 (likely bad data)
+    df_clean = df_clean[df_clean['salary_min'] >= 10000]
+
     # Clean location data
     df_clean['location'] = df_clean['location'].fillna('Not Specified')
     df_clean['location'] = df_clean['location'].replace('N/A', 'Not Specified')
@@ -135,17 +141,17 @@ def extract_skills(job_descriptions):
 
 def create_top_companies_chart(df, top_n=10):
     """Create bar chart of top paying companies"""
-    company_avg_salary = df.groupby('company_name')['avg_salary'].agg(['mean', 'count']).reset_index()
+    company_avg_salary = df.groupby('organization')['avg_salary'].agg(['mean', 'count']).reset_index()
     company_avg_salary = company_avg_salary[company_avg_salary['count'] >= 1]  # At least 1 job
     company_avg_salary = company_avg_salary.sort_values('mean', ascending=False).head(top_n)
-    
+
     fig = px.bar(
-        company_avg_salary, 
-        x='mean', 
-        y='company_name',
+        company_avg_salary,
+        x='mean',
+        y='organization',
         orientation='h',
         title=f'Top {top_n} Highest Paying Companies',
-        labels={'mean': 'Average Salary ($)', 'company_name': 'Company'},
+        labels={'mean': 'Average Salary ($)', 'organization': 'Company'},
         color='mean',
         color_continuous_scale='viridis'
     )
@@ -242,8 +248,8 @@ def main():
     st.sidebar.header("Filters")
     
     # Salary range filter
-    min_salary = int(df['avg_salary'].min())
-    max_salary = int(df['avg_salary'].max())
+    min_salary = int(df['avg_salary'].min()) if len(df) > 0 and not df['avg_salary'].isna().all() else 0
+    max_salary = int(df['avg_salary'].max()) if len(df) > 0 and not df['avg_salary'].isna().all() else 100000
     salary_range = st.sidebar.slider(
         "Salary Range ($)",
         min_value=min_salary,
@@ -255,9 +261,9 @@ def main():
     # Location filter
     locations = ['All'] + sorted(df['location'].unique().tolist())
     selected_location = st.sidebar.selectbox("Location", locations)
-    
+
     # Company filter
-    companies = ['All'] + sorted(df['company_name'].unique().tolist())
+    companies = ['All'] + sorted(df['organization'].unique().tolist())
     selected_company = st.sidebar.selectbox("Company", companies)
     
     # Apply filters
@@ -268,9 +274,9 @@ def main():
     
     if selected_location != 'All':
         filtered_df = filtered_df[filtered_df['location'] == selected_location]
-    
+
     if selected_company != 'All':
-        filtered_df = filtered_df[filtered_df['company_name'] == selected_company]
+        filtered_df = filtered_df[filtered_df['organization'] == selected_company]
     
     # High-level statistics
     st.header("📊 Key Statistics")
@@ -301,11 +307,11 @@ def main():
         )
     
     with col4:
-        unique_companies = filtered_df['company_name'].nunique()
+        unique_companies = filtered_df['organization'].nunique()
         st.metric(
             label="Companies",
             value=f"{unique_companies:,}",
-            delta=f"{unique_companies - df['company_name'].nunique():,}" if len(filtered_df) != len(df) else None
+            delta=f"{unique_companies - df['organization'].nunique():,}" if len(filtered_df) != len(df) else None
         )
     
     # Charts section
@@ -365,16 +371,16 @@ def main():
             st.plotly_chart(fig_hist, use_container_width=True)
             
             # Box plot by company (top 10)
-            top_companies = filtered_df.groupby('company_name')['avg_salary'].count().nlargest(10).index
-            company_salary_df = filtered_df[filtered_df['company_name'].isin(top_companies)]
+            top_companies = filtered_df.groupby('organization')['avg_salary'].count().nlargest(10).index
+            company_salary_df = filtered_df[filtered_df['organization'].isin(top_companies)]
             
             if len(company_salary_df) > 0:
                 fig_box = px.box(
                     company_salary_df,
-                    x='company_name',
+                    x='organization',
                     y='avg_salary',
                     title='Salary Distribution by Top Companies',
-                    labels={'avg_salary': 'Average Salary ($)', 'company_name': 'Company'}
+                    labels={'avg_salary': 'Average Salary ($)', 'organization': 'Company'}
                 )
                 fig_box.update_xaxes(tickangle=45)
                 st.plotly_chart(fig_box, use_container_width=True)
@@ -383,9 +389,9 @@ def main():
     
     # Data table
     st.header("📋 Job Listings")
-    
+
     # Show filtered data
-    display_df = filtered_df[['company_name', 'job_title', 'location', 'avg_salary']].copy()
+    display_df = filtered_df[['organization', 'job_title', 'location', 'avg_salary']].copy()
     display_df['avg_salary'] = display_df['avg_salary'].apply(lambda x: f"${x:,.0f}")
     display_df.columns = ['Company', 'Job Title', 'Location', 'Average Salary']
     
