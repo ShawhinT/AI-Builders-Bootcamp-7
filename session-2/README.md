@@ -1,77 +1,49 @@
-# Lead Scoring with GPT-4.1
+# Session 2: Software 3.0, LLMs, Prompt Engineering
 
-Here we explore the tradeoffs between different prompting strategies on a lead scoring task.
+Links:
+- [Example 1: Research paper summarizer](https://github.com/ShawhinT/AI-Builders-Bootcamp-6/blob/main/session-3/example_1-paper_summarizer.ipynb)
+- [Example 2: Text classifier](https://github.com/ShawhinT/AI-Builders-Bootcamp-6/blob/main/session-3/example_2-text-classifier.ipynb)
 
-### Prerequisites
+## How to run the examples
 
-- Python 3.13+
-- [uv](https://docs.astral.sh/uv/) package manager
-- OpenAI API key
+### uv
 
-## How to run this example
-
-### uv (recommended)
-
-1. Clone the repository:
-    ```bash
-    git clone <repository-url>
-    cd session-1
+1. Clone this repo
     ```
-
-2. Install dependencies using uv:
-    ```bash
+    git clone https://github.com/ShawhinT/AI-Builders-Bootcamp-7.git
+    ```
+2. Navigate to downloaded folder and create new venv
+    ```
     uv sync
     ```
-
-3. Create a `.env` file and add your OpenAI API key:
-    ```bash
-    echo "OPENAI_API_KEY=your_api_key_here" > .env
+3. Launch Jupyter Lab
     ```
-
-4. Start Jupyter Lab:
-    ```bash
-    uv run jupyter lab
-    ```
-
-### Python/pip
-
-1. Clone the repository:
-    ```bash
-    git clone <repository-url>
-    cd session-1
-    ```
-
-2. Create a virtual environment:
-    ```bash
-    python -m venv venv
-    ```
-
-3. Activate the virtual environment:
-    ```bash
-    # On macOS/Linux:
-    source venv/bin/activate
-    
-    # On Windows:
-    venv\Scripts\activate
-    ```
-
-4. Install dependencies using pip:
-    ```bash
-    pip install -e .
-    ```
-
-5. Create a `.env` file and add your OpenAI API key:
-    ```bash
-    echo "OPENAI_API_KEY=your_api_key_here" > .env
-    ```
-
-6. Start Jupyter Lab:
-    ```bash
     jupyter lab
     ```
 
-### References
+### Standard Python
 
-Data source
-- [Hugging Face Dataset](https://huggingface.co/datasets/shawhin/lead-scoring-x)
-- [Original Dataset from Kaggle](https://www.kaggle.com/datasets/amritachatterjee09/lead-scoring-dataset)
+1. Clone this repo
+    ```
+    git clone https://github.com/ShawhinT/AI-Builders-Bootcamp-7.git
+    ```
+2. Navigate to downloaded folder and create new venv
+    ```
+    python -m venv s2-env
+    ```
+3. Activate venv
+    ```
+    # mac/linux
+    source s2-env/bin/activate
+
+    # windows
+    .\s2-env\Scripts\activate.bat
+    ```
+4. Install dependencies
+    ```
+    pip install -e .
+    ```
+5. Launch Jupyter Lab
+    ```
+    jupyter lab
+    ```
