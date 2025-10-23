@@ -6,7 +6,7 @@ Links:
 
 ## How to run the examples
 
-### uv
+### uv (recommended)
 
 1. Clone this repo
     ```
