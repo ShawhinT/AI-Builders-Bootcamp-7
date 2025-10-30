@@ -16,5 +16,12 @@ Examples:
 Here, we begin building AI systems with LLMs. Unlike machine learning, we don't need datasets to get started.
 
 Examples:
-- [Research paper summarizer](https://github.com/ShawhinT/AI-Builders-Bootcamp-6/blob/main/session-2/example_1-paper_summarizer.ipynb)
+- [Research paper summarizer](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-2/example_1-paper_summarizer.ipynb)
 - [Lead Scoring](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-2/example_2-lead_scoring.ipynb)
+
+## Session 3: RAG, Text Embeddings
+Prompting LLMs ChatGPT-style only scratches the surface of what we can use modern language models for. We can also leverage RAG to improve model performance and text embeddings to make text computable.
+
+Examples:
+- [RAG with LlamaIndex](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-3/example_2-rag_with_llamaindex.ipynb)
+- [Analyzing Unstructured Survey Data](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-3/example_1-unstructured_survey_analysis.ipynb)
