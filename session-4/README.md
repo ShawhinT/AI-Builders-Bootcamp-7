@@ -7,6 +7,23 @@ Links:
 
 ## How to run the examples
 
+### uv
+
+1. Clone this repo
+    ```
+    git clone https://github.com/ShawhinT/AI-Builders-Bootcamp-7.git
+    ```
+2. Navigate to downloaded folder and create new venv
+    ```
+    uv sync
+    ```
+3. Launch Jupyter Lab
+    ```
+    uv run jupyter lab
+    ```
+
+### Python/pip
+
 1. Clone this repo
 2. Navigate to downloaded folder and create new venv
 ```

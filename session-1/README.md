@@ -19,7 +19,7 @@ Links:
     ```
 3. Launch Jupyter Lab
     ```
-    jupyter lab
+    uv run jupyter lab
     ```
 
 ### Standard Python
