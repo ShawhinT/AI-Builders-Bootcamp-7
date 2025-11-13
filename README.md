@@ -30,6 +30,8 @@ Examples:
 While prompting LLMs and automatically giving them relevant context can take us far, they still involve a traditional approach to software development. Namely, developers break down tasks into steps and translate them into code + LLM calls. 
 
 Agents present a new way of thinking about software. Rather than explicitly defining rules and business logic, agents involve giving LLMs the tools they need to solve problems.
+
+Examples:
 - [YouTube Agent](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-4/example_1-youtube_agent.ipynb)
 - [Notion MCP Agent](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-4/example_2-notion_mcp_agent.ipynb)
 - [Upwork Profile Rewriter (in a loop)](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-4/example_3-profile_rewriter_loop.ipynb)
@@ -37,6 +39,6 @@ Agents present a new way of thinking about software. Rather than explicitly defi
 ## Session 5: Fine-tuning
 Although LLMs can solve a wide range of problems out of the box, there are situations where more model customization is required. This can be achieved through model fine-tuning, which involves adapting a model to a particular use case through additional training.
 
-Examples
+Examples:
 - [Fine-tuning a LinkedIn Post Writer](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/tree/main/session-5/example-1)
 - [Fine-tuning Text Embeddings on AI Jobs](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/tree/main/session-5/example-2)
