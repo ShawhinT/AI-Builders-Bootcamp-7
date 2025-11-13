@@ -34,3 +34,9 @@ Agents present a new way of thinking about software. Rather than explicitly defi
 - [Notion MCP Agent](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-4/example_2-notion_mcp_agent.ipynb)
 - [Upwork Profile Rewriter (in a loop)](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/blob/main/session-4/example_3-profile_rewriter_loop.ipynb)
 
+## Session 5: Fine-tuning
+Although LLMs can solve a wide range of problems out of the box, there are situations where more model customization is required. This can be achieved through model fine-tuning, which involves adapting a model to a particular use case through additional training.
+
+Examples
+- [Fine-tuning a LinkedIn Post Writer](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/tree/main/session-5/example-1)
+- [Fine-tuning Text Embeddings on AI Jobs](https://github.com/ShawhinT/AI-Builders-Bootcamp-7/tree/main/session-5/example-2)
